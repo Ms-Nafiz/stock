@@ -2,12 +2,13 @@
     <div class="dark:text-white dark:bg-gray-800 bg-white p-5 ">
         <h2
             class="rounded text-2xl font-semibold text-center rtl:text-right text-white">
-            STB Transactions ({{ $stbStock->count() }})
+            STB List ({{ $stbStock->count() }})
         </h2>
         @if ($msg)
             <h4 class="text-green-300 text-center font-semibold">{{$msg}}</h4>
         @endif
     </div>
+    <button wire:click ="delete">Delete</button>
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
