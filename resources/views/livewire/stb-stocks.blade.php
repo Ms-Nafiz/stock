@@ -8,7 +8,7 @@
             <h4 class="text-green-300 text-center font-semibold">{{$msg}}</h4>
         @endif
     </div>
-    <button wire:click ="delete">Delete</button>
+    {{-- <button wire:click ="delete">Delete</button> --}}
     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
