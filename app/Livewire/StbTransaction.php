@@ -7,10 +7,12 @@ use App\Models\STb;
 use Livewire\Component;
 use App\Models\Transaction;
 use App\Traits\ApiCallHandle;
+use App\Traits\StockHandler;
 
 class StbTransaction extends Component
 {
     use ApiCallHandle;
+    use StockHandler;
     public $stbTransaction, $results, $msg, $nuid;
     public $formDate;
     public $toDate;
@@ -90,10 +92,9 @@ class StbTransaction extends Component
     {
         // if the stb no found it will add the stb after pressing add button
         $this->msg = null;
-        $firstDigit = substr($this->nuid, 0, 1);
         $addStb = new STb();
         $addStb->nuid = $this->nuid;
-        $addStb->category = $firstDigit == 2 ? 'NL' : 'HC';
+        $addStb->category = $this->stbCategory($this->nuid);
         $addStb->is_stock = true;
         $addStb->remarks = 'first upload' . ', ' . date('d-m-Y');
         $addStb->save();

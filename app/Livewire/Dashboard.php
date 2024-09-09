@@ -33,10 +33,12 @@ class Dashboard extends Component
             'good' => [
                 'hc' => $this->summary('HC', 'good')['inMyHand'],
                 'nl' => $this->summary('NL', 'good')['inMyHand'],
+                'nstv' => $this->summary('NSTV', 'good')['inMyHand'],
             ],
             'error' => [
                 'hc' => $this->summary('HC', 'error')['inMyHand'],
                 'nl' => $this->summary('NL', 'error')['inMyHand'],
+                'nstv' => $this->summary('NSTV', 'error')['inMyHand'],
             ]
         ];
     }
@@ -46,10 +48,12 @@ class Dashboard extends Component
             'good' => [
                 'hc' => $this->summary('HC', 'good')['stock'],
                 'nl' => $this->summary('NL', 'good')['stock'],
+                'nstv' => $this->summary('NSTV', 'good')['stock'],
             ],
             'error' => [
                 'hc' => $this->summary('HC', 'error')['stock'],
                 'nl' => $this->summary('NL', 'error')['stock'],
+                'nstv' => $this->summary('NSTV', 'error')['stock'],
             ]
         ];
     }

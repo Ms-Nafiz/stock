@@ -23,4 +23,20 @@ trait StockHandler
         $stb->is_stock = $impact->stock_impact;
         $stb->save();
     }
+
+    public function stbCategory($nuid)
+    {
+        $firstDigit = substr($nuid, 0, 1);
+        $category = null;
+
+        if ($firstDigit == 2) {
+            $category = 'NL';
+        } elseif ($firstDigit == 3) {
+            $category = 'HC';
+        } else {
+            $category = "NSTV";
+        }
+
+        return $category;
+    }
 }
