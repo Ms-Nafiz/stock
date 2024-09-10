@@ -29,7 +29,7 @@ trait ApiCallHandle
 
         $existingData = $existingData->map(function ($existing) {
             $cacheKey = 'api_data_' . $existing->complain_id;
-            $apiData = Cache::remember($cacheKey, 3600, function () use ($existing) {
+            $apiData = Cache::remember($cacheKey, 600, function () use ($existing) {
                 $apiResponse = Http::get(env('API_URL') . $existing->complain_id);
                 if ($apiResponse->successful()) {
                     return $apiResponse->json();
