@@ -6,7 +6,7 @@
                 <div class="w-1/2">
                     <h2 class="text-base my-2 font-semibold">Search by NUID</h2>
                     <form wire:submit.prevent='search'>
-                        <input wire:model.defer='nuid' maxlength="10" minlength="10" id="email" name="email"
+                        <input wire:model.defer='nuid' maxlength="12" minlength="10" id="email" name="email"
                             type="text" required
                             class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6">
                         <button type="submit"
