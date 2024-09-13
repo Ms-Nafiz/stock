@@ -8,6 +8,7 @@ use Symfony\Component\CssSelector\XPath\Extension\FunctionExtension;
 
 class Dashboard extends Component
 {
+    public $stbDetails;
     public function render()
     {
         $inMyHand = $this->inMyhand();
@@ -56,5 +57,14 @@ class Dashboard extends Component
                 'nstv' => $this->summary('NSTV', 'error')['stock'],
             ]
         ];
+    }
+    public function totalStb($status, $stock)
+    {
+        $this->stbDetails = STb::where(function ($q) use($stock) {
+            $q->where('is_stock', $stock)
+                ->orWhereNull('is_stock');
+        })
+        ->where('status', $status)
+        ->get();
     }
 }
