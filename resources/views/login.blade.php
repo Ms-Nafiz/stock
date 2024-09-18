@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     {{-- @vite(['resources/css/app.css']) --}}
-    <link rel="stylesheet" href="{{asset('build/assets/app-BjH7jqUY.css')}}">
+    <link rel="stylesheet" href="{{asset('build/assets/app-BEqCKeug.css')}}">
 
 </head>
 <body>

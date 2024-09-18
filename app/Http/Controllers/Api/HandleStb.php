@@ -9,15 +9,18 @@ use Illuminate\Http\Request;
 
 class HandleStb extends Controller
 {
-    public function findStb($id)
+    public function findStb()
     {
-        $transaction = Transaction::with('stb', 'technician', 'transactionType')->where('complain_id', $id)->first();
-        $data = [
-            'nuid' => $transaction->stb->nuid,
-            'technicain' => $transaction->technician->name,
-            'complain' => $transaction->transactionType->types
-        ];
+        $transaction = Transaction::with('stb', 'technician', 'transactionType')->get();
 
+        $data = $transaction->map(function ($stb) {
+            return [
+                'technician' => $stb->technician->name,
+                'nuid' => $stb->stb->nuid,
+                'complain' => $stb->transactionType->types,
+                'cusId' => $stb->complain_id
+            ];
+        });
         if (!$transaction) {
             return response()->json(['error' => 'complain not found'], 404);
         }

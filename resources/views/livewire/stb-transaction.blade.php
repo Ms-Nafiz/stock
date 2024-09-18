@@ -37,8 +37,15 @@
                                 <div class="font-bold text-base mb-2 text-gray-800">Record Details
                                     ({{ $results->transaction->count() }})</div>
                                 <div class="flex justify-between">
-                                    <p class="text-gray-700 mb-2">
-                                        <span class="font-semibold">NUID:</span> {{ $results->nuid }}
+                                    <p class="text-gray-700 mb-2 flex items-center">
+                                        <span class="font-semibold">NUID:</span>
+                                            {{ $results->nuid }}
+                                            <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="13px"
+                                                viewBox="0 -960 960 960" width="13px" fill="#0000F5">
+                                                <path
+                                                    d="M216-216h51l375-375-51-51-375 375v51Zm-72 72v-153l498-498q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24 16l51 51q11 11 16 24t5 26.54q0 14.45-5.02 27.54T795-642L297-144H144Zm600-549-51-51 51 51Zm-127.95 76.95L591-642l51 51-25.95-25.05Z" />
+                                            </svg>
+                                        
                                     </p>
                                     <p class="text-gray-700 mb-2">
                                         <span class="font-semibold">Stock:</span>
