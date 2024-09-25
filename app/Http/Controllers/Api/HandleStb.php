@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\STb;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class HandleStb extends Controller
 {
@@ -25,5 +26,17 @@ class HandleStb extends Controller
             return response()->json(['error' => 'complain not found'], 404);
         }
         return response()->json($data);
+    }
+
+    public function formatNewConnectionList(Request $req)
+    {
+        $data = $req->json()->all();
+
+        // Log::info('Received data:', $data);
+
+        return response()->json([
+            'msg' => 'Success',
+            'data' => $data
+        ], 200);
     }
 }
