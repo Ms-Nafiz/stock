@@ -1,96 +1,129 @@
 <div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <div class="w-1/2 mx-auto p-2 bg-sky-100 rounded mb-2 min-h-[200px]">
-            {{-- <h3 class="text-xl text-center font-semibold my-2">Search by Id</h3> --}}
-            <div class="flex justify-between w-full">
-                <div class="w-1/2">
-                    <h2 class="text-base my-2 font-semibold">Search by NUID</h2>
-                    <form wire:submit.prevent='search'>
-                        <input wire:model.defer='nuid' maxlength="12" minlength="10" id="email" name="email"
-                            type="text" required
-                            class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6">
-                        <button type="submit"
-                            class="w-full mt-2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Search</button>
-                    </form>
-                    @if ($msg)
-                        <div class="text-center">
-                            <span
-                                class="items-center w-full rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 my-2 block">{{ $msg }}
-                            </span>
-                        </div>
-                        @if ($results == null)
-                            <div class="text-center">
-                                <button wire:click='addStb'
-                                    class="text-xs py-1 px-4 bg-indigo-500 rounded-sm text-white">Add
-                                </button>
-                            </div>
-                        @endif
-                    @endif
-
+        <div class="flex gap-2">
+            <div class="bg-sky-100 rounded mb-2 min-h-[200px] w-1/3">
+                <h2 class="text-base mb-2 font-semibold text-center">Transactions</h2>
+                <div class="text-xs p-3">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="text-left">
+                                <th class="border-b-gray-300 border-b">Id</th>
+                                <th class="border-b-gray-300 border-b">Address</th>
+                                <th class="border-b-gray-300 border-b">Complain</th>
+                                <th class="border-b-gray-300 border-b">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if ($transactionsDetails)
+                                @foreach ($transactionsDetails as $transaction)
+                                    @foreach ($transaction->transaction as $details)
+                                        <tr>
+                                            <td class="border-b-gray-300 border-b">{{ $details->id }}</td>
+                                            <td class="border-b-gray-300 border-b">{{ $details->address }}</td>
+                                            <td class="border-b-gray-300 border-b">{{ $details->transactionType->types }}</td>
+                                            <td class="border-b-gray-300 border-b">{{ $details->created_at->format('d-M-y') }}</td>
+                                        </tr>
+                                    @endforeach
+                                @endforeach
+                            @endif
+                        </tbody>
+                    </table>
                 </div>
-                {{-- search results --}}
-                <div>
-                    @if ($results !== null)
-                        <div
-                            class="min-w-[200px] text-xs bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 m-2">
-                            <div class="px-2 py-1">
-                                <div class="font-bold text-base mb-2 text-gray-800">Record Details
-                                    ({{ $results->transaction->count() }})</div>
-                                <div class="flex justify-between">
-                                    <p class="text-gray-700 mb-2 flex items-center">
-                                        <span class="font-semibold">NUID:</span>
+            </div>
+            <div class="w-2/5 p-2 bg-sky-100 rounded mb-2 min-h-[200px]">
+                {{-- <h3 class="text-xl text-center font-semibold my-2">Search by Id</h3> --}}
+                <div class="flex justify-between w-full">
+                    <div class="w-1/2">
+                        {{-- <h2 class="text-base my-2 font-semibold">Search by NUID</h2> --}}
+                        <form wire:submit.prevent='search'>
+                            <input wire:model.defer='nuid' maxlength="12" minlength="10" id="email" name="email"
+                                type="text" required
+                                class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6" placeholder="Search by NUID">
+                            <button type="submit"
+                                class="w-full mt-2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Search</button>
+                        </form>
+                        @if ($msg)
+                            <div class="text-center">
+                                <span
+                                    class="items-center w-full rounded-md bg-red-50 px-2 py-1 text-xs font-medium text-red-700 ring-1 ring-inset ring-red-600/10 my-2 block">{{ $msg }}
+                                </span>
+                            </div>
+                            @if ($results == null)
+                                <div class="text-center">
+                                    <button wire:click='addStb'
+                                        class="text-xs py-1 px-4 bg-indigo-500 rounded-sm text-white">Add
+                                    </button>
+                                </div>
+                            @endif
+                        @endif
+
+                    </div>
+                    {{-- search results --}}
+                    <div>
+                        @if ($results !== null)
+                            <div
+                                class="min-w-[200px] text-xs bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200 mx-2">
+                                <div class="px-2 py-1">
+                                    <div class="font-bold text-base mb-2 text-gray-800">Record Details
+                                        ({{ $results->transaction->count() }})</div>
+                                    <div class="flex justify-between">
+                                        <p class="text-gray-700 mb-2 flex items-center">
+                                            <span class="font-semibold">NUID:</span>
                                             {{ $results->nuid }}
-                                            <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="13px"
-                                                viewBox="0 -960 960 960" width="13px" fill="#0000F5">
+                                            <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+                                                height="13px" viewBox="0 -960 960 960" width="13px" fill="#0000F5">
                                                 <path
                                                     d="M216-216h51l375-375-51-51-375 375v51Zm-72 72v-153l498-498q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24 16l51 51q11 11 16 24t5 26.54q0 14.45-5.02 27.54T795-642L297-144H144Zm600-549-51-51 51 51Zm-127.95 76.95L591-642l51 51-25.95-25.05Z" />
                                             </svg>
-                                        
-                                    </p>
-                                    <p class="text-gray-700 mb-2">
-                                        <span class="font-semibold">Stock:</span>
-                                        @if ($results->is_stock == true)
-                                            <span class="text-green-500 font-semibold">Yes</span>
-                                        @else
-                                            <span class="text-red-500 font-semibold">No</span>
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="flex justify-between">
-                                    <p class="text-gray-700 mb-2">
-                                        <span class="font-semibold">Category:</span> {{ $results->category }}
-                                    </p>
-                                    <p class="text-gray-700 mb-2">
-                                        <span class="font-semibold">Status:</span>
-                                        <button wire:click='statusUpdate({{ $results->id }})'
-                                            class="hover:text-indigo-500 text-{{ $results->status == 'good' ? 'green' : 'red' }}-500">
-                                            {{ ucwords($results->status) }}
-                                        </button>
-                                    </p>
-                                </div>
-                                <p class="text-gray-700">
-                                    <span class="font-semibold">Remarks:</span>
-                                    {{ $results->remarks }}
-                                </p>
-                            </div>
-                            <div class="flex justify-end">
-                                <button
-                                    wire:click="$dispatch('openModal',{component: 'add-transaction',arguments: {id: {{ $results->id }}}})""
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
-                                    Add
-                                </button>
-                            </div>
-                        </div>
-                        @if ($statusMsg)
-                            <div class="text-center">
-                                <span
-                                    class="text-indigo-600 text-center font-semibold text-xs ">{{ $statusMsg }}</span>
-                            </div>
-                        @endif
-                    @endif
 
+                                        </p>
+                                        <p class="text-gray-700 mb-2">
+                                            <span class="font-semibold">Stock:</span>
+                                            @if ($results->is_stock == true)
+                                                <span class="text-green-500 font-semibold">Yes</span>
+                                            @else
+                                                <span class="text-red-500 font-semibold">No</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                    <div class="flex justify-between">
+                                        <p class="text-gray-700 mb-2">
+                                            <span class="font-semibold">Category:</span> {{ $results->category }}
+                                        </p>
+                                        <p class="text-gray-700 mb-2">
+                                            <span class="font-semibold">Status:</span>
+                                            <button wire:click='statusUpdate({{ $results->id }})'
+                                                class="hover:text-indigo-500 text-{{ $results->status == 'good' ? 'green' : 'red' }}-500">
+                                                {{ ucwords($results->status) }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                    <p class="text-gray-700">
+                                        <span class="font-semibold">Remarks:</span>
+                                        {{ $results->remarks }}
+                                    </p>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button
+                                        wire:click="$dispatch('openModal',{component: 'add-transaction',arguments: {id: {{ $results->id }}}})""
+                                        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            @if ($statusMsg)
+                                <div class="text-center">
+                                    <span
+                                        class="text-indigo-600 text-center font-semibold text-xs ">{{ $statusMsg }}</span>
+                                </div>
+                            @endif
+                        @endif
+
+                    </div>
                 </div>
             </div>
+            {{-- stb transaction details --}}
+            
         </div>
 
         <div class="relative">
@@ -113,7 +146,7 @@
                 </form>
             </div>
             {{-- {{$stbTransaction}} --}}
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <table class="w-full text-xs text-left rtl:text-right text-gray-500 dark:text-gray-400">
 
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -214,7 +247,7 @@
                                 {{ $transaction->complain_id }}
                             </td>
                             <td class="p-3 ">
-                                {{ $transaction->created_at->format('d-M-Y') }}
+                                {{ $transaction->created_at->format('d-M-y') }}
                             </td>
                             <td>
                                 <span class="flex gap-1">

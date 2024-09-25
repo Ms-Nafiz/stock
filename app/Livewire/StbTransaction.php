@@ -18,6 +18,8 @@ class StbTransaction extends Component
     public $toDate;
     public $statusMsg;
     public $deleteMsg;
+    public $transactionsDetails;
+    public $test;
     protected $listeners = ['updateTransaction' => 'updateTransaction', 'newTransaction' => 'updateTransaction'];
 
     public function render()
@@ -27,12 +29,14 @@ class StbTransaction extends Component
 
     public function mount()
     {
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory());
-        // $this->results = STb::find(1)->first();
+        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        
     }
 
     public function search()
     {
+        // dd($this->callApi($this->transactionHistory()->pluck('complain_id')->toArray()));
+        // dd($this->callApi($this->transactionHistory()->pluck('complain_id'))->toArray());
         // find signle stb for add transaction
         $this->deleteMsg = null;
         $this->results = null;
@@ -43,7 +47,8 @@ class StbTransaction extends Component
         } else {
             $this->msg = 'STB is out of stock or wrong nuid!';
         }
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory());
+        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        $this->transactionsDetails = $this->stbTransactions();
     }
 
     public function statusUpdate($id)
@@ -61,7 +66,7 @@ class StbTransaction extends Component
     public function updateTransaction()
     {
         // this will update transaction after added new transaction
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory());
+        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
     }
     public function transactionHistory()
     {
@@ -73,8 +78,7 @@ class StbTransaction extends Component
         }])
             ->whereMonth('created_at', $currentMonth)
             ->whereYear('created_at', $currentYear)
-            ->orderBy('created_at', 'desc')
-            ->get();
+            ->orderBy('created_at', 'desc');
     }
 
     public function findTransaction()
@@ -112,6 +116,9 @@ class StbTransaction extends Component
 
         $this->deleteMsg = 'Transaction has been deleted!';
         // update new transaction data
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory());
+        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+    }
+    public function stbTransactions(){
+        return STb::with('transaction')->where('nuid', $this->nuid)->get();
     }
 }

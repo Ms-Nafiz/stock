@@ -41,6 +41,24 @@ trait ApiCallHandle
         });
         return $existingData;
     }
+
+    public function callApi($ids)
+    {
+        // Prepare the array data to be sent to Laravel App 1
+        $data = $ids;
+
+        // Send POST request to Laravel App 1 (API Call Server)
+        $response = Http::post('http://127.0.0.1:8000/api/complain/', ['id' => $data]);
+
+        // Handle the response from Laravel App 1
+        if ($response->successful()) {
+            // Return the response from the API server
+            return response()->json($response->json(), 200);
+        }
+
+        // Handle errors if the request to Laravel App 1 fails
+        return response()->json(['error' => 'Unable to communicate with the API Call Server'], 500);
+    }
 }
 
 

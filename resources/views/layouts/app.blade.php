@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('title')</title>
-    {{-- @vite(['resources/css/app.css']) --}}
+    @vite(['resources/css/app.css'])
     <link rel="icon" href="{{asset('photos/ccl_logo.png')}}">
-    <link rel="stylesheet" href="{{asset('build/assets/app-BEqCKeug.css')}}">
+    {{-- <link rel="stylesheet" href="{{asset('build/assets/app-BEqCKeug.css')}}"> --}}
     @livewireStyles
 </head>
 <body class="min-h-full bg-gray-900">

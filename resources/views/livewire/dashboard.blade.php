@@ -5,9 +5,9 @@
             <h2 class="text-2xl font-semibold text-gray-100 mb-4">In My Hand</h2>
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-blue-900 p-4 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold text-green-300">Good</h3>
+                    <h3 wire:click="stbInHand('good',true)" class="text-lg font-semibold text-green-300 cursor-pointer hover:text-amber-600 underline">Good</h3>
                     <div class="grid grid-cols-2">
-                        <p class="text-gray-300 cursor-pointer hover:text-red-300">Home Cast:</p>
+                        <p class="text-gray-300">Home Cast:</p>
                         <span class="text-right">{{ $inMyHand['good']['hc'] }}</span>
                         <p class="text-gray-300">New Land:</p>
                         <span class="text-right">{{ $inMyHand['good']['nl'] }}</span>
@@ -19,7 +19,7 @@
                     </div>
                 </div>
                 <div class="bg-blue-900 p-4 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold text-red-300">Error</h3>
+                    <h3 wire:click="stbInHand('error',true)" class="text-lg font-semibold text-red-300 hover:text-red-500 cursor-pointer underline">Error</h3>
                     <div class="grid grid-cols-2">
                         <p class="text-gray-300">Home Cast:</p>
                         <span class="text-right">{{ $inMyHand['error']['hc'] }}</span>
@@ -43,7 +43,7 @@
             <h2 class="text-2xl font-semibold text-gray-100 mb-4">In Stock</h2>
             <div class="grid grid-cols-2 gap-4">
                 <div class="bg-indigo-900 p-4 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold text-green-300">Good</h3>
+                    <h3 wire:click="stbInStock('good')" class="text-lg font-semibold text-green-300 underline cursor-pointer hover:text-lime-600">Good</h3>
                     <div class="grid grid-cols-2">
                         <p class="text-gray-300">Home Cast:</p>
                         <span class="text-right">{{ $stock['good']['hc'] }}</span>
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="bg-indigo-900 p-4 rounded-lg shadow">
-                    <h3 class="text-lg font-semibold text-red-300">Error</h3>
+                    <h3 wire:click="stbInStock('error')" class="text-lg font-semibold text-red-300 underline cursor-pointer hover:text-red-600">Error</h3>
                     <div class="grid grid-cols-2">
                         <p class="text-gray-300">Home Cast:</p>
                         <span class="text-right">{{ $stock['error']['hc'] }}</span>
@@ -77,25 +77,9 @@
             </div>
         </div>
     </div>
-    <div class="total text-white p-6 w-1/4 mx-auto">
-        <h4 class="text-center">Total STB</h4>
-        <div class="flex justify-between">
-            <button wire:click="totalStb('good',true)" class="p-1 bg-green-200 font-semibold text-green-700 rounded text-sm">
-                Good
-                <span>
-                {{ $inMyHand['good']['hc'] + $inMyHand['good']['nl'] + $inMyHand['good']['nstv'] + $stock['good']['hc'] + $stock['good']['nl'] + $stock['good']['nstv'] }}
-            </span>
-            </button>
-            <button wire:click="totalStb('error',false)" class="p-1 bg-red-200 font-semibold text-red-700 rounded text-sm">
-                Error
-                <span>
-                {{ $inMyHand['error']['hc'] + $inMyHand['error']['nl'] + $inMyHand['error']['nstv'] + $stock['error']['hc'] + $stock['error']['nl'] + $stock['error']['nstv'] }}
-                </span>
-            </button>
-        </div>
-    </div>
     @if ($stbDetails)
     <div class="w-1/2 mx-auto text-white">
+        <h2 class="text-center py-3 text-yellow-400">Total ({{$stbDetails->count()}})</h2>
         <table class="w-full">
             <tr>
                 <th class="text-left border-b border-b-gray-500">NUID</th>

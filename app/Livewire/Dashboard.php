@@ -58,12 +58,15 @@ class Dashboard extends Component
             ]
         ];
     }
-    public function totalStb($status, $stock)
+    public function stbInHand($status, $stock)
     {
-        $this->stbDetails = STb::where(function ($q) use($stock) {
-            $q->where('is_stock', $stock)
-                ->orWhereNull('is_stock');
-        })
+        $this->stbDetails = STb::where('is_stock', $stock)
+        ->where('status', $status)
+        ->get();
+    }
+    public function stbInStock($status)
+    {
+        $this->stbDetails = STb::whereNull('is_stock')
         ->where('status', $status)
         ->get();
     }
