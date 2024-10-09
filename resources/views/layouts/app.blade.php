@@ -8,7 +8,7 @@
     <title>@yield('title')</title>
     {{-- @vite(['resources/css/app.css']) --}}
     <link rel="icon" href="{{asset('photos/ccl_logo.png')}}">
-    <link rel="stylesheet" href="{{asset('build/assets/app-C7c-8PUh.css')}}">
+    <link rel="stylesheet" href="{{asset('build/assets/app-DpJt8vFT.css')}}">
     @livewireStyles
 </head>
 <body class="min-h-full bg-gray-900">

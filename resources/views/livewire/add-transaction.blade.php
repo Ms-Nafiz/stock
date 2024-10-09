@@ -91,11 +91,11 @@
                         class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                 </div>
             </div>
-            @if (session()->has('message'))
+            {{-- @if (session()->has('message'))
                 <div class="text-center mt-2">
                     <span class="p-1  bg-green-100 text-green-600 font-semibold rounded">{{ session('message') }}</span>
                 </div>
-            @endif
+            @endif --}}
             <!-- Submit Button -->
             <div class="mt-6">
                 <button type="submit"

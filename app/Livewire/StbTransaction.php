@@ -20,6 +20,7 @@ class StbTransaction extends Component
     public $deleteMsg;
     public $transactionsDetails;
     public $test;
+    public $stbSuccessMsg;
     protected $listeners = ['updateTransaction' => 'updateTransaction', 'newTransaction' => 'updateTransaction'];
 
     public function render()
@@ -38,6 +39,7 @@ class StbTransaction extends Component
         // dd($this->callApi($this->transactionHistory()->pluck('complain_id')->toArray()));
         // dd($this->callApi($this->transactionHistory()->pluck('complain_id'))->toArray());
         // find signle stb for add transaction
+        $this->stbSuccessMsg = null;
         $this->deleteMsg = null;
         $this->results = null;
         $this->msg = null;
@@ -63,8 +65,9 @@ class StbTransaction extends Component
         $this->search();
         $this->statusMsg = 'Stb Status Updated!';
     }
-    public function updateTransaction()
+    public function updateTransaction($msg)
     {
+        $this->stbSuccessMsg = $msg;
         // this will update transaction after added new transaction
         $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
     }

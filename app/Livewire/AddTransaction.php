@@ -85,7 +85,8 @@ class AddTransaction extends ModalComponent
         $this->reset();
 
         // Add a success message or redirect
-        session()->flash('message', 'Transaction added successfully.');
-        $this->dispatch('updateTransaction');
+        $msg = 'Transaction added successfully.';
+        $this->dispatch('updateTransaction', $msg);
+        $this->closeModal();
     }
 }

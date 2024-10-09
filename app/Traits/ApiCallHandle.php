@@ -7,21 +7,13 @@ use Illuminate\Support\Facades\Cache;
 
 trait ApiCallHandle
 {
-    // public function mergedApiData($existingData)
-    // {
-    //     $existingData = $existingData->map(function ($data) {
-    //         // api response
-    //         $apiResponse = Http::get(env('API_URL') . $data->complain_id);
-
-    //         if ($apiResponse->successful()) {
-    //             // merged api data with existing data
-    //             $apiData = $apiResponse->json();
-    //             $data->api_data = $apiData;
-    //         }
-    //         return $data;
-    //     });
-    //     return $existingData;
-    // }
+    public function apiData($existingData)
+    {
+        $complains = $this->complains();
+        $existingData = $existingData->map(function($data) use ($complains){
+            $complainData = $complains->firstWhere('cus_id',$data->complain_id);
+        });
+    }
 
     public function mergedApiData($existingData)
     {
@@ -59,7 +51,19 @@ trait ApiCallHandle
         // Handle errors if the request to Laravel App 1 fails
         return response()->json(['error' => 'Unable to communicate with the API Call Server'], 500);
     }
+
+    public function complains()
+    {
+        $response = Http::get(env('API_URL'));
+
+        if ($response->successful()) {
+            return collect($response->json()); // Convert API response to Laravel collection
+        }
+
+        return collect(); // Return empty collection if API fails
+    }
 }
+
 
 
     // $data = Cache::remember($cacheKey, 3600, function () use ($id) {

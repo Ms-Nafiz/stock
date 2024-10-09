@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/stb', [HandleStb::class, 'findStb']);
 Route::post('/new-connection-list', [HandleStb::class, 'formatNewConnectionList']);
+Route::get('/main-data',[HandleStb::class, 'apiData']);

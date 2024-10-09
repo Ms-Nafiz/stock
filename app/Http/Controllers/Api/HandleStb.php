@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\NewConnectionFormat;
 use App\Models\STb;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 class HandleStb extends Controller
 {
+    public $dataFromApi;
     public function findStb()
     {
         $transaction = Transaction::with('stb', 'technician', 'transactionType')->get();
@@ -30,13 +32,18 @@ class HandleStb extends Controller
 
     public function formatNewConnectionList(Request $req)
     {
-        $data = $req->json()->all();
+        $apiData = $req->json()->all();
 
-        // Log::info('Received data:', $data);
-
+        // $this->saveData($req->all());
         return response()->json([
             'msg' => 'Success',
-            'data' => $data
+            'data' => $apiData
         ], 200);
+    }
+
+    public function saveData ($data){
+        $ncData = new NewConnectionFormat();
+        $ncData->data = $data;
+        $ncData->save();
     }
 }

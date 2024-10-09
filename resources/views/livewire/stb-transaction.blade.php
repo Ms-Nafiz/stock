@@ -20,8 +20,10 @@
                                         <tr>
                                             <td class="border-b-gray-300 border-b">{{ $details->id }}</td>
                                             <td class="border-b-gray-300 border-b">{{ $details->address }}</td>
-                                            <td class="border-b-gray-300 border-b">{{ $details->transactionType->types }}</td>
-                                            <td class="border-b-gray-300 border-b">{{ $details->created_at->format('d-M-y') }}</td>
+                                            <td class="border-b-gray-300 border-b">
+                                                {{ $details->transactionType->types }}</td>
+                                            <td class="border-b-gray-300 border-b">
+                                                {{ $details->created_at->format('d-M-y') }}</td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -38,7 +40,8 @@
                         <form wire:submit.prevent='search'>
                             <input wire:model.defer='nuid' maxlength="12" minlength="10" id="email" name="email"
                                 type="text" required
-                                class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6" placeholder="Search by NUID">
+                                class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6"
+                                placeholder="Search by NUID">
                             <button type="submit"
                                 class="w-full mt-2 justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Search</button>
                         </form>
@@ -123,9 +126,13 @@
                 </div>
             </div>
             {{-- stb transaction details --}}
-            
-        </div>
 
+        </div>
+        @if ($stbSuccessMsg)
+            <div class="text-center my-2">
+                <span class="p-1 text-xs bg-green-50 text-green-500 font-semibold rounded">{{ $stbSuccessMsg }}</span>
+            </div>
+        @endif
         <div class="relative">
             <h2
                 class="p-5 rounded text-2xl font-semibold text-center rtl:text-right text-gray-900 bg-white dark:text-white dark:bg-gray-800">
@@ -201,12 +208,13 @@
                                     {{ null }}
                                 @endif
                             </td> --}}
-                            <th scope="row" class="p-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <th scope="row"
+                                class="p-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 @if ($transaction->exchange_for !== null)
                                     <span class="flex items-center">
                                         <span>{{ $transaction->stb->nuid }}</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" height="17px" viewBox="0 -960 960 960"
-                                            width="24px" fill="#EA33F7">
+                                        <svg xmlns="http://www.w3.org/2000/svg" height="17px"
+                                            viewBox="0 -960 960 960" width="24px" fill="#EA33F7">
                                             <path
                                                 d="M400-240 160-480l240-240 56 58-142 142h486v80H314l142 142-56 58Z" />
                                         </svg>
