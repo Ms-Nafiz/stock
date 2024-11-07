@@ -78,8 +78,8 @@ class TransactionEdit extends ModalComponent
             }
         }
         $stb->save();
-        session()->flash('message', 'Update Successful!');
-        $this->dispatch('newTransaction');
-        // $this->closeModal();
+        $msg = 'Update Successful!';
+        $this->dispatch('newTransaction',$msg);
+        $this->closeModal();
     }
 }
