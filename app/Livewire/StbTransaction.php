@@ -30,7 +30,8 @@ class StbTransaction extends Component
 
     public function mount()
     {
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        $this->stbTransaction = $this->transactionHistory()->get();
         
     }
 
@@ -49,7 +50,8 @@ class StbTransaction extends Component
         } else {
             $this->msg = 'STB is out of stock or wrong nuid!';
         }
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        $this->stbTransaction = $this->transactionHistory()->get();
         $this->transactionsDetails = $this->stbTransactions();
     }
 
@@ -69,7 +71,8 @@ class StbTransaction extends Component
     {
         $this->stbSuccessMsg = $msg;
         // this will update transaction after added new transaction
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        $this->stbTransaction = $this->transactionHistory()->get();
     }
     public function transactionHistory()
     {
@@ -93,7 +96,8 @@ class StbTransaction extends Component
             ->whereBetween('created_at', [$this->formDate, $this->toDate])
             ->orderBy('created_at', 'desc')
             ->get();
-        $this->stbTransaction = $this->mergedApiData($transactionByDates);
+        // $this->stbTransaction = $this->mergedApiData($transactionByDates);
+        $this->stbTransaction = $transactionByDates;
     }
     public function addStb()
     {
@@ -119,7 +123,8 @@ class StbTransaction extends Component
 
         $this->deleteMsg = 'Transaction has been deleted!';
         // update new transaction data
-        $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
+        $this->stbTransaction = $this->transactionHistory()->get();
     }
     public function stbTransactions(){
         return STb::with('transaction')->where('nuid', $this->nuid)->get();
