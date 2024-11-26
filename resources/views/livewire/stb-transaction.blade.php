@@ -19,7 +19,7 @@
                                     @foreach ($transaction->transaction as $details)
                                         <tr>
                                             <td class="border-b-gray-300 border-b">{{ $details->id }}</td>
-                                            <td class="border-b-gray-300 border-b">{{ $details->address }}</td>
+                                            <td class="border-b-gray-300 border-b">{{ $details->address . ', ' . $details->building->name }}</td>
                                             <td class="border-b-gray-300 border-b">
                                                 {{ $details->transactionType->types }}</td>
                                             <td class="border-b-gray-300 border-b">

@@ -32,7 +32,6 @@ class StbTransaction extends Component
     {
         // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
         $this->stbTransaction = $this->transactionHistory()->get();
-        
     }
 
     public function search()
@@ -126,7 +125,11 @@ class StbTransaction extends Component
         // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
         $this->stbTransaction = $this->transactionHistory()->get();
     }
-    public function stbTransactions(){
-        return STb::with('transaction')->where('nuid', $this->nuid)->get();
+    public function stbTransactions()
+    {
+        return STb::with(['transaction' => function ($q) {
+            $q->with('building');
+        }])
+            ->where('nuid', $this->nuid)->get();
     }
 }
