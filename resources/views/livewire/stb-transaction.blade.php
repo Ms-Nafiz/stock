@@ -10,6 +10,7 @@
                                 <th class="border-b-gray-300 border-b">Id</th>
                                 <th class="border-b-gray-300 border-b">Address</th>
                                 <th class="border-b-gray-300 border-b">Complain</th>
+                                <th class="border-b-gray-300 border-b">Exng For</th>
                                 <th class="border-b-gray-300 border-b">Date</th>
                             </tr>
                         </thead>
@@ -19,11 +20,24 @@
                                     @foreach ($transaction->transaction as $details)
                                         <tr>
                                             <td class="border-b-gray-300 border-b">{{ $details->id }}</td>
-                                            <td class="border-b-gray-300 border-b">{{ $details->address . ', ' . $details->building->name }}</td>
+                                            <td class="border-b-gray-300 border-b">
+                                                {{ $details->address . ', ' . $details->building->name }}</td>
                                             <td class="border-b-gray-300 border-b">
                                                 {{ $details->transactionType->types }}</td>
                                             <td class="border-b-gray-300 border-b">
-                                                {{ $details->created_at->format('d-M-y') }}</td>
+                                                {{ $details->exchange_for }}</td>
+                                            <td class="border-b-gray-300 border-b">
+                                                {{ $details->created_at->format('d-M-y') }}
+                                            </td>
+                                            <td>
+                                                <svg wire:click='deleteTransaction({{ $details->id }})'
+                                                    class="cursor-pointer" xmlns="http://www.w3.org/2000/svg"
+                                                    height="18px" viewBox="0 -960 960 960" width="24px"
+                                                    fill="#EA3323">
+                                                    <path
+                                                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                                </svg>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 @endforeach
@@ -38,8 +52,8 @@
                     <div class="w-1/2">
                         {{-- <h2 class="text-base my-2 font-semibold">Search by NUID</h2> --}}
                         <form wire:submit.prevent='search'>
-                            <input wire:model.defer='nuid' maxlength="12" minlength="10" id="email" name="email"
-                                type="text" required
+                            <input wire:model.defer='nuid' minlength="10" id="email" name="email" type="text"
+                                required
                                 class="block w-full rounded-md border border-indigo-400 p-1 text-gray-900 shadow-sm placeholder:text-gray-400 outline-none sm:text-sm sm:leading-6"
                                 placeholder="Search by NUID">
                             <button type="submit"
@@ -73,8 +87,9 @@
                                         <p class="text-gray-700 mb-2 flex items-center">
                                             <span class="font-semibold">NUID:</span>
                                             {{ $results->nuid }}
-                                            <svg class="cursor-pointer" xmlns="http://www.w3.org/2000/svg"
-                                                height="13px" viewBox="0 -960 960 960" width="13px" fill="#0000F5">
+                                            <svg wire:click="$dispatch('openModal',{component:'stb-edit',arguments:{id:{{ $results->id }}}})"
+                                                class="cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="13px"
+                                                viewBox="0 -960 960 960" width="13px" fill="#0000F5">
                                                 <path
                                                     d="M216-216h51l375-375-51-51-375 375v51Zm-72 72v-153l498-498q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24 16l51 51q11 11 16 24t5 26.54q0 14.45-5.02 27.54T795-642L297-144H144Zm600-549-51-51 51 51Zm-127.95 76.95L591-642l51 51-25.95-25.05Z" />
                                             </svg>

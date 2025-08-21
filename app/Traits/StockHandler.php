@@ -27,16 +27,16 @@ trait StockHandler
     public function stbCategory($nuid)
     {
         $firstDigit = substr($nuid, 0, 1);
-        $category = null;
+        $digits     = strlen((string) $nuid);
 
-        if ($firstDigit == 2) {
-            $category = 'NL';
-        } elseif ($firstDigit == 3) {
-            $category = 'HC';
-        } else {
-            $category = "NSTV";
+        if ($firstDigit == 2 && $digits <= 10) {
+            return 'NL';
         }
 
-        return $category;
+        if (in_array($firstDigit, [2, 3]) && $digits >= 10) {
+            return 'HC';
+        }
+
+        return 'NSTV';
     }
 }
