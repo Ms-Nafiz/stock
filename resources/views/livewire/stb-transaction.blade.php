@@ -1,7 +1,7 @@
 <div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
         <div class="flex gap-2">
-            <div class="bg-sky-100 rounded mb-2 min-h-[200px] w-1/3">
+            <div class="bg-sky-100 rounded mb-2 min-h-[200px] w-2/5">
                 <h2 class="text-base mb-2 font-semibold text-center">Transactions</h2>
                 <div class="text-xs p-3">
                     <table class="w-full">
