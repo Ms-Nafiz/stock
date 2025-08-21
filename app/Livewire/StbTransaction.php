@@ -21,7 +21,7 @@ class StbTransaction extends Component
     public $transactionsDetails;
     public $test;
     public $stbSuccessMsg;
-    protected $listeners = ['updateTransaction' => 'updateTransaction', 'newTransaction' => 'updateTransaction'];
+    protected $listeners = ['updateTransaction' => 'updateTransaction', 'newTransaction' => 'updateTransaction', 'editStb' => 'updateTransaction'];
 
     public function render()
     {
@@ -68,10 +68,12 @@ class StbTransaction extends Component
     }
     public function updateTransaction($msg)
     {
+        $this->nuid = $msg;
         $this->stbSuccessMsg = $msg;
         // this will update transaction after added new transaction
         // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
         $this->stbTransaction = $this->transactionHistory()->get();
+        $this->search();
     }
     public function transactionHistory()
     {
