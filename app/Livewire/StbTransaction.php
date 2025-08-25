@@ -66,14 +66,22 @@ class StbTransaction extends Component
         $this->search();
         $this->statusMsg = 'Stb Status Updated!';
     }
-    public function updateTransaction($msg)
+    public function updateTransaction($payload = null)
     {
-        $this->nuid = $msg;
-        $this->stbSuccessMsg = $msg;
+        if (is_array($payload)) {
+            $this->nuid = $payload['stb'] ;
+            $this->stbSuccessMsg = $payload['msg'];
+        }
+        // যদি string হয়
+        elseif (is_string($payload)) {
+            $this->stbSuccessMsg = $payload;
+        }
         // this will update transaction after added new transaction
         // $this->stbTransaction = $this->mergedApiData($this->transactionHistory()->get());
         $this->stbTransaction = $this->transactionHistory()->get();
-        $this->search();
+        if($this->nuid !== null){
+            $this->search();
+        }
     }
     public function transactionHistory()
     {

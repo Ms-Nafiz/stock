@@ -41,7 +41,7 @@ class StbEdit extends ModalComponent
         $findSTb->nuid = $this->nuid;
         $findSTb->save();
 
-        $this->dispatch('editStb', $findSTb->nuid);
+        $this->dispatch('editStb', ["stb" => $findSTb->nuid, "msg" => 'STB Updated']);
         $this->closeModal();
         // return $this->msg = "Stb Updated!";
     }
